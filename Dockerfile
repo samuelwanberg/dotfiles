@@ -49,4 +49,4 @@ COPY . /root/.yadr
 RUN cd /root/.yadr && rake install
 
 # Run a zsh session
-CMD [ "/bin/zsh" ]
+ENTRYPOINT  [ "/bin/zsh" ]

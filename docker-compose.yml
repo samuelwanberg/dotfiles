@@ -1,8 +1,10 @@
-version: "3"
+
 services:
   dotfiles:
     build:
       context: .
-    image: yadr
+    image: dotfiles
     volumes:
       - ./:/root/.yadr/
+    stdin_open: true
+    tty: true
