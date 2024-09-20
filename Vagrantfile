@@ -5,6 +5,12 @@ Vagrant.configure("2") do |config|
   # Use Ubuntu 18.04 as the base box
   config.vm.box = "ubuntu/bionic64"
 
+  # Set the VM's resources
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+    vb.cpus = 2
+  end
+
   # Set environment variables
   config.vm.provision "shell", inline: <<-SHELL
     export TERM=xterm-256color
@@ -57,20 +63,16 @@ Vagrant.configure("2") do |config|
 
   # Copy and install dotfiles
   config.vm.provision "file", source: ".", destination: "/home/vagrant/.yadr"
+
   config.vm.provision "shell", inline: <<-SHELL
-    cd /home/vagrant/.yadr && rake install
+	  sudo -u vagrant --login bash -c 'cd /home/vagrant/.yadr && rake'
+
   SHELL
 
   # Set zsh as the default shell
   config.vm.provision "shell", inline: <<-SHELL
     sudo chsh -s /bin/zsh vagrant
   SHELL
-
-  # Set the VM's resources
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
-    vb.cpus = 2
-  end
 
   # SSH into the VM and start a Zsh session
   config.vm.provision "shell", inline: <<-SHELL

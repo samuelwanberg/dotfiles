@@ -41,6 +41,13 @@ exec:
 	@echo "Exec bash container access..."
 	docker compose -f $(COMPOSE_FILE) exec $(SERVICE) zsh
 
+# Clean Docker images and containers
+.PHONY: v-up
+v-up:
+	@echo "Exec Vagrant Up with rake file local config for teste "
+	vagrant up
+
+
 # Help menu
 .PHONY: help
 help:
@@ -51,4 +58,3 @@ help:
 	@echo " make logs - View container logs"
 	@echo " make exec - Access shell container"
 	@echo " make clean - Clean up Docker images and containers"
-
